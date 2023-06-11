@@ -66,7 +66,7 @@ class ProductManager {
 const manager = new ProductManager();
 
 manager.addProduct('VINO LAS PERDICES BAG IN BOX','Las perdices Reserva Duo Malbec Rose y Sauvignon Blanc',3336,'https://....','VINO001',0);
-manager.addProduct('EUFORIA MALBEC','EUFORIA MALBEC DE FELIPE STAITI Y MARCELO PALLERITI',6410,'https://....','VINO002',5); // Error: código existente
+manager.addProduct('EUFORIA MALBEC','EUFORIA MALBEC DE FELIPE STAITI Y MARCELO PALLERITI',6410,'https://....','VINO002',5);
 manager.addProduct('FLORES NEGRAS','FLORES NEGRAS PINOT NOIR',1645,'https://....','VINO003',10);
 
 console.log ('Detalle del array')
@@ -77,5 +77,4 @@ console.log ('Busco el ID 2')
 manager.getProductById(2);
 
 console.log ('Busco el ID 8')
-
 manager.getProductById(8); 

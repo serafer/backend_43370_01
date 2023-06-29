@@ -1,0 +1,223 @@
+[
+    {
+      "id": 1,
+      "title": "Whisky Johnnie Walker Red Label",
+      "description": "Whisky escocés de mezcla, perfecto para cócteles y tragos.",
+      "code": "JW001",
+      "price": 1500,
+      "status": true,
+      "stock": 50,
+      "category": "Whisky",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 2,
+      "title": "Vodka Absolut",
+      "description": "Vodka sueco premium, ideal para disfrutar en tragos o solo.",
+      "code": "AB002",
+      "price": 1200,
+      "status": true,
+      "stock": 30,
+      "category": "Vodka",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 3,
+      "title": "Gin Bombay Sapphire",
+      "description": "Gin inglés con notas cítricas y especiadas, perfecto para gin tonics.",
+      "code": "BS003",
+      "price": 1800,
+      "status": true,
+      "stock": 20,
+      "category": "Gin",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 4,
+      "title": "Ron Bacardi Superior",
+      "description": "Ron cubano suave y versátil, ideal para cócteles caribeños.",
+      "code": "BA004",
+      "price": 900,
+      "status": true,
+      "stock": 40,
+      "category": "Ron",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 5,
+      "title": "Tequila Patrón Silver",
+      "description": "Tequila mexicano premium, destilado en alambiques de cobre.",
+      "code": "PT005",
+      "price": 2500,
+      "status": true,
+      "stock": 15,
+      "category": "Tequila",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 6,
+      "title": "Cerveza Quilmes",
+      "description": "Cerveza argentina clásica, ideal para compartir en cualquier ocasión.",
+      "code": "QM006",
+      "price": 250,
+      "status": true,
+      "stock": 100,
+      "category": "Cerveza",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 7,
+      "title": "Champagne Moët & Chandon",
+      "description": "Champagne francés de renombre mundial, perfecto para celebraciones.",
+      "code": "MC007",
+      "price": 3500,
+      "status": true,
+      "stock": 10,
+      "category": "Champagne",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 8,
+      "title": "Whisky Glenfiddich 12 años",
+      "description": "Whisky escocés de malta envejecido en barricas de roble.",
+      "code": "GF008",
+      "price": 2800,
+      "status": true,
+      "stock": 25,
+      "category": "Whisky",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 9,
+      "title": "Vodka Smirnoff",
+      "description": "Vodka ruso de calidad reconocida mundialmente.",
+      "code": "SF009",
+      "price": 1000,
+      "status": true,
+      "stock": 35,
+      "category": "Vodka",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 10,
+      "title": "Gin Tanqueray",
+      "description": "Gin inglés con sabor a enebro y especias, perfecto para martinis.",
+      "code": "TQ010",
+      "price": 2000,
+      "status": true,
+      "stock": 18,
+      "category": "Gin",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 11,
+      "title": "Ron Havana Club Añejo 7 años",
+      "description": "Ron cubano añejo con un equilibrio de sabores excepcional.",
+      "code": "HC011",
+      "price": 1500,
+      "status": true,
+      "stock": 22,
+      "category": "Ron",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 12,
+      "title": "Tequila Don Julio Reposado",
+      "description": "Tequila mexicano reposado con notas suaves de agave.",
+      "code": "DJ012",
+      "price": 1800,
+      "status": true,
+      "stock": 16,
+      "category": "Tequila",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 13,
+      "title": "Cerveza Stella Artois",
+      "description": "Cerveza belga de calidad premium, perfecta para degustar.",
+      "code": "SA013",
+      "price": 300,
+      "status": true,
+      "stock": 80,
+      "category": "Cerveza",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 14,
+      "title": "Champagne Veuve Clicquot",
+      "description": "Champagne francés de alta gama con sabor elegante y fresco.",
+      "code": "VC014",
+      "price": 4500,
+      "status": true,
+      "stock": 8,
+      "category": "Champagne",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 15,
+      "title": "Whisky Macallan 18 años",
+      "description": "Whisky escocés de malta envejecido durante 18 años en barricas de roble.",
+      "code": "MC015",
+      "price": 5000,
+      "status": true,
+      "stock": 12,
+      "category": "Whisky",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 16,
+      "title": "Vodka Grey Goose",
+      "description": "Vodka francés de alta calidad, destilado en Cognac.",
+      "code": "GG016",
+      "price": 2000,
+      "status": true,
+      "stock": 28,
+      "category": "Vodka",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 17,
+      "title": "Ron Santa Teresa Añejo",
+      "description": "Ron venezolano añejo con sabor suave y notas de madera.",
+      "code": "ST017",
+      "price": 1100,
+      "status": true,
+      "stock": 20,
+      "category": "Ron",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 18,
+      "title": "Tequila Espolón Reposado",
+      "description": "Tequila mexicano reposado con carácter y suavidad excepcionales.",
+      "code": "EP018",
+      "price": 1600,
+      "status": true,
+      "stock": 15,
+      "category": "Tequila",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 19,
+      "title": "Cerveza Heineken",
+      "description": "Cerveza holandesa reconocida a nivel mundial por su calidad.",
+      "code": "HK019",
+      "price": 350,
+      "status": true,
+      "stock": 70,
+      "category": "Cerveza",
+      "thumbnails": "img not found"
+    },
+    {
+      "id": 20,
+      "title": "Champagne Dom Pérignon",
+      "description": "Champagne francés de prestigio con sabor único y refinado.",
+      "code": "DP020",
+      "price": 7000,
+      "status": true,
+      "stock": 5,
+      "category": "Champagne",
+      "thumbnails": "img not found"
+    }
+  ]
+  

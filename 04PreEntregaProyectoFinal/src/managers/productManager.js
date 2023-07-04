@@ -45,8 +45,7 @@ export const addProduct = async ({ title, description, price, thumbnails, code,s
   }
 }
 
-//export const updateProduct = async (id, title, description, price, thumbnails, code,status, category, stock) => {
-  
+ 
 export const updateProduct = async (id, { title, description, price, thumbnails, code, status, category, stock }) => {
 
 try {

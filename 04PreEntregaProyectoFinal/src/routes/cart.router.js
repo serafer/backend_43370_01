@@ -61,19 +61,27 @@ router.post('/:idCart/prod/:idProduct', async (req,res)=>{
         
 const { idCart, idProduct } = req.params
 
-const prodEx = await getProductById(Number(idProduct));
+const idCartNum = Number(idCart);
+const idProductNum = Number(idProduct);
+
+const prodEx = await getProductById(idProductNum);
 console.log("el producto existe", prodEx)
-const savePro = await saveProductToCart(idCart,idProduct)
 
-if (savePro) {
 
-    res.status(200).json({message:"updated successfully", savePro });
+if (prodEx.id == idProductNum) {
+
+    const savePro = await saveProductToCart(idCartNum,idProductNum)
+
+    if(savePro){
+        res.status(200).json({msg: `Product ${idProductNum} added to cart ${idCartNum}`, savePro}) }
 
 } else {
-
-    res.status(404).json({ message: error.message });
+    res.status(404).send({msg: `Error: Can't add to cart`});
 
 }
+
+
+
     } catch (error) {
         next(error)
     }

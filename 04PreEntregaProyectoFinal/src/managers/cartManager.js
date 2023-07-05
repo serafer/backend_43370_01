@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { __dirname } from '../utils.js';
 import { getProductById } from './productManager.js';
-const pathFile = __dirname + "/db/carts_.json";
+const pathFile = __dirname + "/db/carts.json";
 
 
 export const getCart = async () => {
@@ -56,9 +56,7 @@ export const createCart = async () => {
 export const getCartById = async (cartId) => {
 
     try {
-
         const carts = await getCart()
-
         const cart = carts.find(cart => cart.id === cartId);
 
         if (cart) {
@@ -77,73 +75,37 @@ export const getCartById = async (cartId) => {
 
 
 
-export const saveProductToCart = async (idCart, idProduct) => {
+export const saveProductToCart = async (idCartNum, idProductNum) => {
     try {
-
-        const idProductNum = Number(idProduct);
-        const idCartNum = Number(idCart);
-
-        const cartsFile = await getCart();  //traigo array de productos
-        const cartExist = await getCartById(idCartNum);    //traigo el cart solicitado
-
-        const cartIndex = cartsFile.findIndex(cart => cart.id === idCart)
-
-
-        const productExist = await getProductById(idProductNum); //traigo el producto
-
-        const productIsInCart = cartExist.products.find(product => product.id == idProductNum) // valido si el producto ya está en el cart
-
-        if (!productExist) {
-
-            return `Product ${idProductNum} not found`;
-        } else if (!cartExist) {
-
-            return `Cart ${idCartNum} not found`;
-
+      const cartProd = {
+        id: idProductNum,
+        quantity: 1,
+      };
+  
+      const cartsFile = await getCart();
+      const cartIdIndex = cartsFile.findIndex((cart) => cart.id === idCartNum);
+  
+      if (cartIdIndex > -1) {
+        const prodIdIndex = cartsFile[cartIdIndex].products.findIndex(
+          (product) => product.id === idProductNum
+        );
+  
+        if (prodIdIndex > -1) {
+          // El producto ya existe en el carrito, incrementar la cantidad
+          cartsFile[cartIdIndex].products[prodIdIndex].quantity++;
         } else {
-
-            if (productIsInCart) {
-
-                const index = cartExist.products.findIndex(cart => cart.id == idProduct)
-
-                console.log("hola")
-            
-
-                productIsInCart.quantity += 1
-                cartsFile[cartIndex].products[index] = productIsInCart
-
-            } else {
-
-                console.log('Cart products:', cartExist.products);
-                console.log('ID of the product to find:', idProductNum)
-
-                const prod = {
-                    id: idProductNum,
-                    quantity: 1
-                }
-                cartExist.products.push(prod);
-                cartsFile[cartIndex] = cartExist
-
-                console.log('Cart products:', cartExist.products);
-                console.log('cartsFile:', cartsFile)
-
-
-                
-            }
+          // El producto no existe en el carrito, agregarlo
+          cartsFile[cartIdIndex].products.push(cartProd);
         }
-
-
-
-
-
+  
+        // Escribir el arreglo de carritos actualizado en el archivo
         await fs.promises.writeFile(pathFile, JSON.stringify(cartsFile));
-        return cartExist
-
+  
+        return cartsFile;
+      } else {
+        return 'Error: cart ID not found';
+      }
     } catch (error) {
-        return { message: error.message || error.message }
-
+      return { message: error.message || error.message };
     }
-
-
-
-}
+  };

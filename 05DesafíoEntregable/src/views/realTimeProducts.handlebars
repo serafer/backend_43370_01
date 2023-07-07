@@ -1,0 +1,42 @@
+{{!endponit desde /realtimeproducts
+
+con websocket -- dar de alta un nuevo producto y eliminar el producto --- se debe actualizar el listado y reflejarlo
+
+creacion de un form para la eliminacion y creacion del producto}}
+
+<h2>Delete product</h2>
+
+<form id="deleteProduct">
+<input type="number" id="idDelete" placeholder="ID Number" required>    
+<button type="submit">DELETE</button>
+</form>
+
+
+
+
+<h2>Add product</h2>
+
+<form id="newProduct">
+
+<input type="text" id="title" placeholder="title" required>
+<input type="text" id="description" placeholder="description" required>
+<input type="text" id="code" placeholder="code" required>
+<input type="number" id="price" placeholder="price" required>
+<input type="text" id="status" placeholder="true o false" required>
+<input type="number" id="stock" placeholder="stock" required>
+<input type="text" id="category" placeholder="category" required>
+<input type="text" id="thumbnails" placeholder="thumbnails" required>
+<button type="submit">ADD</button>
+
+
+</form>
+
+<h2>Products List</h2>
+
+
+
+
+<div id="products_list"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="index.js"></script>

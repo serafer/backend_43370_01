@@ -66,7 +66,7 @@ export const addProduct = async (req, res, next) => {
     try {
 
         const product = await service.addProductService(req.body)
-        if (!product) req.status(404).json({ message: 'Error creating product' })
+        if (!product) res.status(404).json({ message: 'Error creating product' })
         else res.status(200).json(product)
 
     } catch (error) {

@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { login, register, errorLogin, errorRegister, profile, products } from "../controllers/viewsControllers.js";
+import { login, register, errorLogin, errorRegister, profile } from "../controllers/viewsControllers.js";
 import { logoutUserC } from "../controllers/userControllers.js";
+import { getproductPaginate } from "../controllers/productControllers.js";
 
 
 const router = Router();
@@ -18,7 +19,7 @@ router.get('/error-login', errorLogin);
 router.get('/profile', profile);
 router.get('/logout', logoutUserC);
 
-router.get('/products', products);
+router.get('/products', getproductPaginate);
 
 
 export default router;

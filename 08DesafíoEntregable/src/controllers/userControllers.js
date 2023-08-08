@@ -21,7 +21,7 @@ export const loginUserC = async (req, res) => {
 
       console.log(`req.session en login + email:  ${req.session.body}`);
 
-      res.redirect("/products");
+      res.redirect("/products?page=1");
     } else res.redirect("/error-login");
   } catch (error) {
     console.log(error);

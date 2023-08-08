@@ -1,0 +1,78 @@
+
+<h1 style="display: flex; justify-content: center;" > Bienvenido {{userExists}} </h1>
+
+<h2>Lista de Productos</h2>
+<div ></div>
+
+    <table class="table table-striped table-bordered">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Categoría</th>
+                        
+                    </tr>
+                </thead>
+                <tbod>
+                    {{#each productsMap}}
+                    <tr>
+                        <td>{{this.code}}</td>
+                        <td>{{this.title}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{this.price}}</td>
+                        <td>{{this.stock}}</td>
+                        <td>{{this.category}}</td>
+                                                
+                    </tr>
+                    {{/each}}
+                </tbod>
+            </table>
+
+
+
+    <section style="display: flex; justify-content: center" class="mt-5">
+        
+        <button class="btn btn-danger" onclick="location.href='/logout'" >logout</button>
+    </section>
+
+
+  hola {{user}}
+<pre>userSession: {{user.first_name}} {{user.last_name}} {{user.age}} {{user.email}} {{user.role}}
+    {{user}}
+</pre> 
+<pre>user2: {{user2}}</pre> 
+<pre>userExists: {{userExists}}</pre> 
+<pre>hasPrevPage: {{hasPrevPage}}</pre> 
+<pre>hasNextPage: {{hasNextPage}}</pre> 
+<pre>limit: {{limit}}</pre> 
+<pre>prevPage: {{prevPage}}</pre> 
+<pre>nextPage: {{nextPage}}</pre> 
+<pre>page: {{page}}</pre> 
+<pre>totalPages: {{totalPages}}</pre> 
+
+
+<div class="d-flex justify-content-center mt-3">
+
+            {{#if hasPrevPage}}
+                <a class="btn btn-info mr-5" href="/products?limit={{limit}}&page={{prevPage}}">Anterior</a>
+            {{/if}}
+
+            {{#if hasNextPage}}
+                <a class="btn btn-info" href="/products?limit={{limit}}&page={{nextPage}}">Siguiente</a>
+            {{/if}}
+        </div>
+
+
+
+        <div class="d-flex justify-content-center mt-3">
+            <p>Página {{page}} de {{totalPages}}</p>
+        </div>
+
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="products.js"></script>

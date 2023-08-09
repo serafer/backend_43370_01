@@ -1,3 +1,4 @@
+import { UserModel } from "../daos/mongodb/models/userModel.js";
 import * as userServices from "../services/userServices.js";
 
 export const registerUserC = async (req, res) => {
@@ -15,11 +16,17 @@ export const loginUserC = async (req, res) => {
     const { email } = req.body;
     const userExist = await userServices.loginUserServices(req.body);
 
+    const user = await UserModel.findOne ({email})
+
+    req.session.user = user
+
+    console.log(req.session.user);
+
     if (userExist) {
-      console.log(`req.session en login:  ${req.session}`);
+      // console.log(`req.session en login:  ${req.session}`);
       req.session.email = email;
 
-      console.log(`req.session en login + email:  ${req.session.body}`);
+      // console.log(`req.session en login + email:  ${req.session.body}`);
 
       res.redirect("/products?page=1");
     } else res.redirect("/error-login");

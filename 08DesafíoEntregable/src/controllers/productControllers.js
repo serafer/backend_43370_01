@@ -62,6 +62,23 @@ export const getproductPaginate = async (req, res, next) => {
 
     const userExists = await req.session.email;
 
+    //const user = await req.session
+
+    //console.log('req.session.user a hbs' + req.session.user.email);
+
+    const userName = await req.session.user.first_name
+    const userLastName = await req.session.user.last_name
+    const userEmail = await req.session.user.email
+    const userAge = await req.session.user.age
+
+
+      // console.log(userName,
+      //   userLastName,
+      //   userAge,
+      //   userEmail);        
+
+
+    
     const products = response.docs
 
     const productsMap = products.map((product) => product.toObject());
@@ -79,6 +96,10 @@ export const getproductPaginate = async (req, res, next) => {
         totalPages : response.totalPages,
         products,
         userExists,
+        userName,
+        userLastName,
+        userAge,
+        userEmail
       }) ;
     } else {
       res.render("login");

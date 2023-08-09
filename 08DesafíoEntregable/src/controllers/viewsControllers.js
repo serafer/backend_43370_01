@@ -30,16 +30,16 @@ export const errorLogin = async (req, res, next) => {
   }
 };
 
-export const profile = async (req, res, next) => {
-  try {
-    const userExists = await req.session.email;
-    console.log("userExists en profile " + userExists);
-    if (userExists) {
-      res.render("profile");
-    } else {
-      res.render("login");
-    }
-  } catch (error) {
-    next(error.message);
-  }
-};
+// export const profile = async (req, res, next) => {
+//   try {
+//     const userExists = await req.session.email;
+//     console.log("userExists en profile " + userExists);
+//     if (userExists) {
+//       res.render("profile");
+//     } else {
+//       res.render("login");
+//     }
+//   } catch (error) {
+//     next(error.message);
+//   }
+// };

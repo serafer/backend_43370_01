@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register, errorLogin, errorRegister, profile } from "../controllers/viewsControllers.js";
+import { login, register, errorLogin, errorRegister } from "../controllers/viewsControllers.js";
 import { logoutUserC } from "../controllers/userControllers.js";
 import { getproductPaginate } from "../controllers/productControllers.js";
 
@@ -16,7 +16,7 @@ router.get('/register', register);
 router.get('/error-register', errorRegister);
 router.get('/login', login);
 router.get('/error-login', errorLogin);
-router.get('/profile', profile);
+//router.get('/profile', profile);
 router.get('/logout', logoutUserC);
 
 router.get('/products', getproductPaginate);

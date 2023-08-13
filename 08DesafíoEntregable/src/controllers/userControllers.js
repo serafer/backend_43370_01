@@ -20,7 +20,8 @@ export const loginUserC = async (req, res) => {
 
     req.session.user = user
 
-    console.log(req.session.user);
+    //console.log('req.session.user' + req.session.user);
+    console.log('req.session' + req.session);
 
     if (userExist) {
       // console.log(`req.session en login:  ${req.session}`);

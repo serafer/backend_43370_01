@@ -4,7 +4,7 @@ import { addProduct, deleteProduct, getProductById, getProducts, updateProduct }
 export const getProductsService = async (page, limit, sort, filter, filterValue) => {
     try {
         const response = await getProducts (page, limit, sort, filter, filterValue )
-        console.log('services ok');
+        //console.log('services ok');
         return response
     } catch (error) {
         console.log(error);

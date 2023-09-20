@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { logoutUserC } from "../controllers/userControllers.js";
+import { login, logoutUserC, current } from "../controllers/userControllers.js";
 import passport from "passport";
+import { ckeckAdminRole } from "../middlewares/checkRole.js";
 const router = Router();
 
 router.post(
@@ -12,14 +13,9 @@ router.post(
   })
 );
 
-router.post(
-  "/login",
-  passport.authenticate("login", {
-    successRedirect: "/products?page=1",
-    failureRedirect: "/error-login",
-    passReqToCallback: true,
-  })
-);
+router.post("/login", login )
+
+router.get("/current", passport.authenticate('jwt') , ckeckAdminRole , current )
 
 router.get('/register-github', passport.authenticate('github', {scope: ['user:email']}))
 

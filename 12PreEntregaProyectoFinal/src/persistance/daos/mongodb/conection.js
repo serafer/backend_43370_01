@@ -1,10 +1,10 @@
 import { connect } from 'mongoose';
-import 'dotenv/config'
+import config from '../../../config.js'
 
 
-//const connectionString = process.env.MONGO_LOCAL_URL;
+//const connectionString = config.MONGO_LOCAL_URL;
 
-export const connectionString = process.env.MONGO_ATLAS_URL;
+export const connectionString = config.MONGO_ATLAS_URL;
 
 try {
     await connect(connectionString)

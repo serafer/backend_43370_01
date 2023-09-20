@@ -1,26 +1,26 @@
 import { Router } from "express";
 import * as controller from "../controllers/productControllers.js"
-import { isAuth } from "../middlewares/auth.js";
-import { checkRole } from "../middlewares/checkRole.js";
+import { ckeckAdminRole } from "../middlewares/checkRole.js";
+import passport from "passport";
 
 
 const router = Router ()
 
-router.get('/', checkRole ,controller.getproduct)
+router.get('/',passport.authenticate('jwt') , controller.getproduct)
 
-router.get('/:id', controller.getProductById)
+router.get('/:id', passport.authenticate('jwt') , controller.getProductById)
 
-router.post('/', controller.addProduct)
+router.post('/', passport.authenticate('jwt') , ckeckAdminRole, controller.addProduct)
 
-router.put('/:id', controller.updateProduct)
+router.put('/:id', passport.authenticate('jwt') , ckeckAdminRole, controller.updateProduct)
 
-router.delete('/:id', controller.deleteProduct)
+router.delete('/:id', passport.authenticate('jwt') , ckeckAdminRole ,controller.deleteProduct)
 
 
 
 // -------  DTO  ----- // 
 
-router.get('/dto/:id', controller.getByIdDTO)
-router.post('/dto', controller.createProdDTO)
+router.get('/dto/:id', passport.authenticate('jwt') , ckeckAdminRole, controller.getByIdDTO)
+router.post('/dto', passport.authenticate('jwt') , ckeckAdminRole, controller.createProdDTO)
 
 export default router

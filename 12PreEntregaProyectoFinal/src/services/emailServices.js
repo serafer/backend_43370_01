@@ -47,3 +47,15 @@ export const mailOptionsGmail = (dest,name) =>({
     subject: 'Bienvenido/a',
     html: `<h1>Hola ${name}, ¡Te damos la bienvenida!</h1>`
 });
+
+
+
+
+export const mailOptionsGmailLoginOk = (dest,name) =>({
+
+    
+    from: config.EMAIL_GMAIL,
+    to: dest,
+    subject: 'Inicio de sesión exitoso',
+    html: `<h1>Tu inicio de sesión fue exitoso</h1>`
+});

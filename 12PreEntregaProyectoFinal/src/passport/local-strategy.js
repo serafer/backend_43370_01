@@ -6,6 +6,7 @@ import {
   loginUser,
   registerUser,
 } from "../persistance/daos/mongodb/userDaoMongo.js";
+import { generateToken } from "../jwt/auth.js";
 
 /* opciones - tener en cuenta como los capturamos. ID del form */
 const strategyOptions = {
@@ -27,13 +28,26 @@ const register = async (req, email, password, done) => {
   }
 };
 
-const login = async (req, email, password, done) => {
+const login = async ( req, email, password, done) => {
   try {
-    const user = { email, password };
-    const userLogin = await loginUser(user);
+    const userData = { email, password };
+    const user = await loginUser(userData);
 
-    if (!userLogin) return done(null, false, { message: "Login failed" });
-    return done(null, userLogin);
+    //if (!user) return done(null, false, { message: "Login failed" });
+
+    if (!user){
+    res.json({msg: 'invalid credentials'});
+  } else {
+      const token = generateToken(user)
+
+      console.log('token: ' + token);
+      res
+            .header('Authorization', token)
+            
+            //.cookie('token', token, { httpOnly: true })
+           //.json({msg: 'Login OK', token})
+  }
+    return done(null, user);
   } catch (error) {
     //return done(error, false)
     console.log(error);

@@ -10,6 +10,7 @@ export default {
 
     PERSISTENCE: process.env.PERSISTENCE,
 
+    SECRET_KEY_JWT : process.env.SECRET_KEY_JWT,
 
     
     PORT_ETHEREAL : process.env.PORT_ETHEREAL,

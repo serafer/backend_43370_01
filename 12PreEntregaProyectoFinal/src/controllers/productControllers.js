@@ -62,18 +62,20 @@ export const getproductPaginate = async (req, res, next) => {
 
     const userExists = await req.session;
 
-    const userID = await getUserByID (req.session.passport.user)
+    console.log('userExists = ' + userExists);
+
+    //const userID = await getUserByID (req.session.passport.user)
 
 
     const products = response.docs;
 
     const productsMap = products.map((product) => product.toObject());
-    const user = userID.toObject();
+    //const user = userID.toObject();
 
-    console.log('user prodcut controleler', user);
+    // console.log('user prodcut controleler', user);
 
 
-    if (userExists) {
+    // if (userExists) {
       res.status(200).render("products", {
         productsMap,
         hasPrevPage: existHasPrevPage,
@@ -84,11 +86,13 @@ export const getproductPaginate = async (req, res, next) => {
         page,
         totalPages: response.totalPages,
         products,
-        user,
-      });
-    } else {
-      res.render("login");
-    }
+        
+      }
+      
+      );
+    // } else {
+    //   res.render("login");
+    // }
   } catch (error) {
     next(error.message);
   }

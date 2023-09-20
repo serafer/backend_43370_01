@@ -1,21 +1,14 @@
 import { createResponse } from "../utils.js";
 
 
-export const checkRole = async (req, res, next) => {
+export const ckeckAdminRole = async (req,res,next) => {
 
-    try {
-        const user = req.user
-        const userSession = req.session
+    const { role } = req.user
 
-        console.log('user Checking role: ' + user);
-        
+    //console.log('req.user', req.user);
 
-        console.log('user Checking role Session: ' + userSession);
-        next();
+    if (role !=="admin") return createResponse (res,403, 'Unauthorized' )
 
-    } catch (error) {
-        console.log(error);
-        createResponse (res, 403, 'No user admin')
-    }
+    next();
 
 }

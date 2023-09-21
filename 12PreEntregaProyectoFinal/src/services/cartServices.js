@@ -1,4 +1,4 @@
-import { cleanCart, createCart, deleteProductInCart, getCart, getCartById, saveProductToCart, updateCart, updateQuantityInCart } from "../persistance/daos/mongodb/cartDaoMongo.js";
+import { cleanCart, createCart, deleteProductInCart, getCart, getCartById, saveProductToCart, updateCart, updateQuantityInCart, generateTicket } from "../persistance/daos/mongodb/cartDaoMongo.js";
 
 
 export const getCartService = async () => {
@@ -106,4 +106,17 @@ export const updateCartService = async (id, obj) => {
         console.log(error);
     }
 
+}
+
+
+export const generateTicketService = async (userID ,cartID) => {
+    try {
+        const ticket = await generateTicket (userID ,cartID)
+        console.log('estoy en cartService: ' + ticket);
+         if (!ticket) {return false;}
+         else {return ticket}
+        
+    } catch (error) {
+        console.log(error);
+    }
 }

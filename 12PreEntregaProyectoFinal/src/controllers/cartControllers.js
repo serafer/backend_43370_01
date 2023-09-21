@@ -1,4 +1,6 @@
 import * as service from '../services/cartServices.js'
+import { getUserByID } from "../persistance/daos/mongodb/userDaoMongo.js";
+import { createResponse } from "../utils.js";
 
 export const getCart = async (req,res,next) => {
 
@@ -135,3 +137,30 @@ export const updateCart = async (req,res,next) => {
         next(error.message)
     }
 }
+
+export const generateTicket = async (req, res, next) => {
+    try {
+        const user = await getUserByID(req.user);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const userID = user.id;
+        const cartID = user.cart[0].CartID;
+        console.log('userID = ' + userID);
+        console.log('cartID = ' + cartID);
+
+        const ticket = await service.generateTicketService(userID, cartID);
+        if (!ticket) {
+            return res.status(404).json({ message: 'Error generating ticket' });
+        }
+
+        // Enviar el ticket como respuesta
+        res.status(200).json(ticket);
+
+    } catch (error) {
+        console.log(error);
+        next(error.message);
+    }
+}
+

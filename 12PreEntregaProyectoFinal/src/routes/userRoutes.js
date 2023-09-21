@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, logoutUserC, current } from "../controllers/userControllers.js";
+import { login, logoutUserC, current, getAll } from "../controllers/userControllers.js";
 import passport from "passport";
 import { ckeckAdminRole } from "../middlewares/checkRole.js";
 const router = Router();
@@ -15,7 +15,9 @@ router.post(
 
 router.post("/login", login )
 
-router.get("/current", passport.authenticate('jwt') , ckeckAdminRole , current )
+router.get("/getuser", passport.authenticate('jwt') , ckeckAdminRole , getAll )
+
+router.get("/current", passport.authenticate('jwt') , current )
 
 router.get('/register-github', passport.authenticate('github', {scope: ['user:email']}))
 

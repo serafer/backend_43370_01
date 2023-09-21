@@ -20,5 +20,8 @@ router.put ('/:id/prod/:productId', passport.authenticate("jwt") , controller.up
 
 router.put ('/:id', passport.authenticate("jwt") , controller.updateCart)
 
+router.post ('/:id/purchase', passport.authenticate('jwt') , controller.generateTicket)
+
+router.post('/purchase', passport.authenticate("jwt") ,controller.generateTicket)
 
 export default router

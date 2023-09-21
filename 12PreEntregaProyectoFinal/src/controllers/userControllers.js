@@ -1,6 +1,6 @@
 import { getUserByEmail } from "../persistance/daos/mongodb/userDaoMongo.js";
 import { mailOptionsGmailLoginOk, transporterGmail } from "../services/emailServices.js";
-import { currentUserResDTOService, loginUserServices } from "../services/userServices.js";
+import { currentUserResDTOService, getAllService, loginUserServices } from "../services/userServices.js";
 import { createResponse } from "../utils.js";
 
 export const logoutUserC = (req, res) => {
@@ -33,6 +33,22 @@ export const login = async (req,res) => {
       console.log(error);
   }
 }
+
+
+export const getAll = async (req,res,next) => {
+
+  try {
+      
+      const data = await getAllService()
+      createResponse(res,200,data)
+      
+
+  } catch (error) {
+      next(error.message)
+  
+    }
+  }
+
 
 
 

@@ -1,5 +1,5 @@
 import { generateToken } from "../jwt/auth.js";
-import {registerUser, loginUser } from "../persistance/daos/mongodb/userDaoMongo.js";
+import {registerUser, loginUser, getAll } from "../persistance/daos/mongodb/userDaoMongo.js";
 import { getByIdDTO } from "../persistance/repository/user.repositpry.js";
 
 export const registerUserService = async (user) => {
@@ -22,6 +22,19 @@ export const loginUserServices = async (user) => {
 }
 };
 
+export const getAllService = async () => {
+
+    try {
+        const cart = await getAll()
+        if (!cart) { return false; }
+        else { return cart; }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
 
 export const currentUserResDTOService = async (id) => {
 
@@ -35,3 +48,4 @@ export const currentUserResDTOService = async (id) => {
  
 
     }}
+

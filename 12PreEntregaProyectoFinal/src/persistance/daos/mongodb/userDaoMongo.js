@@ -67,6 +67,19 @@ export const getUserByID = async (id) => {
   }
 };
 
+
+export const getAll = async () => {
+
+  try {
+      const response = await UserModel.find({})
+     return response
+
+  } catch (error) {
+      console.log(error);
+  }
+
+}
+
 export const getUserByEmail = async (email) => {
   try {
     const userExist = await UserModel.findOne({ email });

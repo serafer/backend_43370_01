@@ -29,7 +29,7 @@ export const createCartService = async () => {
     try {
         const cart = await createCart()
         if (!cart) { return false; }
-        else { return true; }
+        else { return cart }
 
 
     } catch (error) {
@@ -98,7 +98,7 @@ export const updateQuantityInCartService = async (id, productId, quantity) => {
 export const updateCartService = async (id, obj) => {
 
     try {
-        const cart = await updateCart (id, obj);
+        const cart = await updateCart(id, obj);
 
         return cart
 
@@ -109,13 +109,12 @@ export const updateCartService = async (id, obj) => {
 }
 
 
-export const generateTicketService = async (userID ,cartID) => {
+export const generateTicketService = async (userID, cartID) => {
     try {
-        const ticket = await generateTicket (userID ,cartID)
-        console.log('estoy en cartService: ' + ticket);
-         if (!ticket) {return false;}
-         else {return ticket}
-        
+        const ticket = await generateTicket(userID, cartID)
+        if (!ticket) { return false; }
+        else { return ticket }
+
     } catch (error) {
         throw new Error(error.message);
     }

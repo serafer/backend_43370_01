@@ -61,8 +61,8 @@ export const current = async (req, res, next) => {
     const { id } = req.user;
     const user = await currentUserResDTOService(id);
 
-    if (user) return httpResponse.OK(res, user)
-    else return httpResponse.NotFound(res, error.USER_NOT_FOUND)
+    if (!user) return httpResponse.NotFound(res, error.USER_NOT_FOUND)
+    else return httpResponse.Ok(res, user)
 
   } catch (error) {
     next(error.message);
@@ -71,22 +71,22 @@ export const current = async (req, res, next) => {
 
 // MOCKS //
 
-export const createUserMocks = async (req, res) => {
+export const createUserMocks = async (req, res, next) => {
   try {
     const { cant } = req.query;
     const response = await createUsersMockService(cant);
     if (!response) return httpResponse.NotFound(res, error.USER_EXISTS)
-    else return httpResponse.OK(res, response)
+    else return httpResponse.Ok(res, response)
   } catch (error) {
     next(error.message);
   }
 };
 
-export const getUsersMocks = async (req, res) => {
+export const getUsersMocks = async (req, res, next) => {
   try {
     const response = await getUsersMocksService();
     if (!response) return httpResponse.NotFound(res, error.USER_NOT_FOUND)
-    else return httpResponse.OK(res, response)
+    else return httpResponse.Ok(res, response)
   } catch (error) {
     next(error.message);
   }

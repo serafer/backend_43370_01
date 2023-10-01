@@ -1,7 +1,7 @@
 import { dirname } from 'path';
 import { fileURLToPath } from "url";
 import MongoStore from 'connect-mongo';
-import { connectionString } from '../persistance/daos/mongodb/conection.js';
+import { connectionString } from './persistance/daos/mongodb/conection.js';
 
 export const __dirname = dirname(fileURLToPath(import.meta.url));
 

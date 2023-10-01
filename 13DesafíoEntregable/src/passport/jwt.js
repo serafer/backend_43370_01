@@ -1,23 +1,21 @@
 import passport from 'passport'
 import {ExtractJwt,Strategy as jwtStrategy}from 'passport-jwt'
-import config from '../config.js'
+import config from '../utils/config.js'
 import { getUserByID } from '../persistance/daos/mongodb/userDaoMongo.js'
 
+const cookieExtractor = (req) => req.cookies.token;
+
 const strategyOption={
-    jwtFromRequest:ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest:ExtractJwt.fromExtractors([cookieExtractor]),
     secretOrKey: config.SECRET_KEY_JWT
 }
 
 const verifyToken=async(jwt_payload,done)=>{
-    
-        //console.log("payload jwt",jwt_payload);
-        
+    //console.log("payload jwt",jwt_payload);
     const user=await getUserByID(jwt_payload.userId)
-
     //console.log('user verifyToker Autenticator: ',user);
-
     if(!user)return done(null,false)
-    done(null,user)
+    return done(null,user)
 }
 
 passport.use('jwt',new jwtStrategy(strategyOption,verifyToken))

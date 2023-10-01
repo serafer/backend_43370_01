@@ -68,6 +68,9 @@ export const getproductPaginate = async (req, res, next) => {
     const existHasPrevPage = response.hasPrevPage ? true : false;
     const existHasNextPage = response.hasNextPage ? true : false;
 
+    const userPrev = req.user
+
+    const user = userPrev.toObject();
 
     const products = response.docs;
 
@@ -83,7 +86,7 @@ export const getproductPaginate = async (req, res, next) => {
       page,
       totalPages: response.totalPages,
       products,
-
+      user
     }
 
     );

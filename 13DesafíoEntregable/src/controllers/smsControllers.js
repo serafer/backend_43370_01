@@ -1,4 +1,4 @@
-import config from "../config.js";
+import config from "../utils/config.js";
 import { twilioClient } from "../services/smsServices.js";
 import { HttpResponse } from "../utils/http.response.js"
 const httpResponse = new HttpResponse();

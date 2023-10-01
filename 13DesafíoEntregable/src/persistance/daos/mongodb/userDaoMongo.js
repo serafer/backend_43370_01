@@ -1,4 +1,4 @@
-import { createHash, isValidPassword } from "../../../utils/utils.js";
+import { createHash, isValidPassword } from "../../../utils.js";
 import { createCart, createCartTestMocks } from "./cartDaoMongo.js";
 import { UserModel } from "./models/userModel.js";
 

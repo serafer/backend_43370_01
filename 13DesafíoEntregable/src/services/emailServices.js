@@ -1,5 +1,5 @@
 import { createTransport } from 'nodemailer';
-import config from '../config.js';
+import config from '../utils/config.js';
 import { templateHtml } from './template.js';
 
 export const transporterEthereal = createTransport({

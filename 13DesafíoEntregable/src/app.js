@@ -1,7 +1,7 @@
 import express, { json, urlencoded } from 'express';
 import passport from 'passport';
 import session from 'express-session';
-import { __dirname, mongoStoreOptions} from './utils/utils.js';
+import { __dirname, mongoStoreOptions} from './utils.js';
 import './passport/jwt.js'
 import './passport/local-strategy.js'
 import './passport/github-strategy.js'
@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan'
 import { errorHandler } from './middlewares/errorHandler.js';
 import handlebars from 'express-handlebars';
-import config from './config.js';
+import config from './utils/config.js';
 const PORT = config.PORT
 
 

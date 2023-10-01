@@ -1,4 +1,4 @@
-import { createResponse } from "../utils/utils.js";
+import { createResponse } from "../utils.js";
 
 
 export const ckeckAdminRole = async (req,res,next) => {

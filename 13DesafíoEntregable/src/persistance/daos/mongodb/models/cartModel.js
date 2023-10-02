@@ -18,6 +18,7 @@ const cartProductSchema = new mongoose.Schema({
 const cartSchema = new mongoose.Schema({
   products: {
     type: [cartProductSchema],
+    slectc: false,
     required: true,
   },
 });

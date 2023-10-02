@@ -11,6 +11,18 @@ const cartSchemaID = new Schema({
     
 })
 
+const ticketSchemaID = new Schema({
+
+    TicketID: {
+        type: Schema.Types.ObjectId,
+        ref: "ticket",
+        required: true,
+        _id: false
+
+    }
+
+})
+
 
 const userSchema = new Schema ({
 
@@ -21,7 +33,8 @@ age: {type: Number, required: true, default: 0},
 password: {type: String, required: true, default: ""},
 role: {type: String, default: 'user'},
 isGithub: {type: Boolean, required: true, default: false},
-cart: {type: [cartSchemaID], required: true}
+cart: {type: [cartSchemaID], required: true},
+ticket: {type: [ticketSchemaID], required:true}
 
 })
 export const UserModel = model ('user', userSchema )

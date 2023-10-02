@@ -1,6 +1,7 @@
 import { CartsModel } from "./models/cartModel.js";
 import { TicketModel } from "./models/ticketModel.js";
 import { ProductModel } from "./models/productModel.js";
+import { UserModel } from "./models/userModel.js";
 
 
 export const getCart = async () => {
@@ -192,6 +193,10 @@ export const updateCart = async (id, obj) => {
 
 export const generateTicket = async (userID, cartID) => {
     try {
+        
+        console.log('userID : ' + userID);
+        console.log('cartID : ' + cartID);
+        
         // Obtén el carrito del usuario
         const userCart = await CartsModel.findById(cartID);
         if (!userCart) {
@@ -203,6 +208,9 @@ export const generateTicket = async (userID, cartID) => {
 
         // Calcula el total de la compra y actualiza el stock de los productos en el carrito
         let totalAmount = 0;
+
+        // Lista de productos que se han podido comprar
+        const purchasedProducts = [];
 
         for (const productItem of userCart.products) {
             const productID = productItem.ProductID;
@@ -220,9 +228,16 @@ export const generateTicket = async (userID, cartID) => {
                 const amount = quantityInCart * productDB.price;
                 totalAmount += amount;
 
-                // Resta la cantidad comprada del stock del producto
+                // Resta la cantidad comprada del stock del producto en la base de datos
                 productDB.stock -= quantityInCart;
                 await productDB.save();
+
+                // Agrega el producto al ticket
+                purchasedProducts.push({
+                    ProductID: productID,
+                    quantity: quantityInCart,
+                    price: productDB.price,
+                });
             } else {
                 // Si no hay suficiente stock, agrega el ID del producto a la lista de no comprados
                 productsNotPurchased.push(productID);
@@ -231,34 +246,35 @@ export const generateTicket = async (userID, cartID) => {
 
         // Crea el ticket si se realizaron compras exitosas
         if (totalAmount > 0) {
-            const ticketProducts = await Promise.all(userCart.products.map(async (productItem) => {
-                const productID = productItem.ProductID;
-                const quantity = productItem.quantity;
-                const productDB = await ProductModel.findById(productID);
-                const price = productDB ? productDB.price : 0; // Obtén el precio del producto desde la base de datos
-
-                return {
-                    ProductID: productID,
-                    quantity: quantity,
-                    price: price,
-                };
-            }));
-
             const ticket = await TicketModel.create({
                 code: `${Math.random()}`,
                 purchase_datetime: new Date().toLocaleString(),
                 amount: totalAmount,
                 purchaser: userID, // Cambia esto si deseas almacenar el ID del usuario
-                products: ticketProducts,
+                products: purchasedProducts,
             });
 
-            // Vacía el carrito del usuario
-            userCart.products = [];
+            // Actualiza el carrito del usuario solo con los productos que no se pudieron procesar
+            userCart.products = userCart.products.filter(productItem => productsNotPurchased.includes(productItem.ProductID));
+            userCart.markModified('products');
             await userCart.save();
+
+            // Actualiza el usuario con el ID del ticket creado
+            const updatedUser = await UserModel.findOneAndUpdate(
+                { _id: userID },
+                { $push: { ticket: { TicketID: ticket.id } } },
+                { new: true } // Devuelve el documento actualizado
+            );
+
+            // Maneja el caso en el que el usuario no se encuentra en la base de datos
+            if (!updatedUser) {
+                throw new Error(`User with ID ${userID} not found`);
+            }
 
             return {
                 ticket,
                 productsNotPurchased,
+                user: updatedUser
             };
         } else {
             // No se pudo realizar ninguna compra

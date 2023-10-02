@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, logoutUserC, current, getAll, createUserMocks, getUsersMocks } from "../controllers/userControllers.js";
+import { login, logoutUserC, current, getAll, createUserMocks, getUsersMocks, loginApi } from "../controllers/userControllers.js";
 import passport from "passport";
 import { ckeckAdminRole } from "../middlewares/checkRole.js";
 const router = Router();
@@ -14,6 +14,8 @@ router.post(
 );
 
 router.post("/login", login )
+
+router.post("/loginApi", loginApi )
 
 router.get("/getuser", passport.authenticate('jwt') , ckeckAdminRole , getAll )
 

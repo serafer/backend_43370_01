@@ -1,7 +1,9 @@
 import express, { json, urlencoded } from 'express';
 import passport from 'passport';
 import session from 'express-session';
-import { __dirname, mongoStoreOptions} from './utils.js';
+import { __dirname, 
+    mongoStoreOptions
+} from './utils.js';
 import './passport/jwt.js'
 import './passport/local-strategy.js'
 import './passport/github-strategy.js'
@@ -11,7 +13,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import handlebars from 'express-handlebars';
 import config from './utils/config.js';
 const PORT = config.PORT
-
+import './persistance/daos/factory.js'
 
 /* routes */
 import viewsRouter from './routes/viewsRoutes.js';

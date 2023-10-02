@@ -1,18 +1,22 @@
-import config from '../../config.js'
-import { connect } from 'mongoose'
+//-------- SOLO FUNCIONA COMO SWITCH PARA LA BASE DE DATOS --------//
+//-------- Queda preparado para una futura migración a class --------//
+//-------- la persistencia en FS, no posee funcionalidad --------//
+
+
+
 
 //------ Mongo ------//
 import * as productDaoMongo from './mongodb/productDaoMongo.js'
 import * as userDaoMongo from './mongodb/userDaoMongo.js'
-import * as chatDaoMongo from './mongodb/chatDaoMongo.js'
+//import * as chatDaoMongo from './mongodb/chatDaoMongo.js'
 import * as cartDaoMongo from './mongodb/cartDaoMongo.js'
-import { connectionString } from "./mongodb/conection.js";
+import { conectionMongoose } from "./mongodb/conection.js";
 
 
 //------ FS ------//
 import * as productDaoFS from './filesystem/productDaoFS.js'
 import * as userDaoFS from './filesystem/userDaoFS.js'
-import * as chatDaoFS from './filesystem/chatDaoFS.js'
+//import * as chatDaoFS from './filesystem/chatDaoFS.js'
 import * as cartDaoFS from './filesystem/cartDaoFS.js'
 
 
@@ -24,36 +28,37 @@ let prodDao;
 let chatDao;
 let cartDao;
 
-//let persistence = config.PERSISTENCE;
-let persistence = process.argv[2]
-;
+let persistence = process.argv[3] || 'mongo'
+
 
 switch (persistence) {
     case 'file':
         userDao = userDaoFS
         prodDao = productDaoFS
-        chatDao = chatDaoFS
+        //chatDao = chatDaoFS
         cartDao = cartDaoFS
-        console.log('persistence: file:', persistence);
+        console.log('Persistence:', persistence);
         break;
     case 'mongo':
-        await connect(connectionString);
+        await conectionMongoose();
         userDao = userDaoMongo
         prodDao = productDaoMongo;
-        chatDao = chatDaoMongo
+        //chatDao = chatDaoMongo
         cartDao = cartDaoMongo
 
-        console.log('persistence: mongo:', persistence);
+        console.log('Persistence:', persistence);
         break;
     default:  
-        await connect(connectionString);
+        await conectionMongoose();
         
         userDao = userDaoMongo
         prodDao = productDaoMongo;
-        chatDao = chatDaoMongo
+        //chatDao = chatDaoMongo
         cartDao = cartDaoMongo
-        console.log('persistence: default', persistence);
+        console.log('Persistence:', persistence);
         break; 
 };
 
-export default { userDao, prodDao, chatDao, cartDao };
+export default { userDao, prodDao, 
+    //chatDao, 
+    cartDao };

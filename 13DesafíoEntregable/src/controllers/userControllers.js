@@ -64,8 +64,6 @@ export const login = async (req, res) => {
 
     const name = await getUserByEmail(email);
 
-    console.log('name = ' + name);
-
     const response = await transporterGmail.sendMail(
       mailOptionsGmailLoginOk(email, name)
     );

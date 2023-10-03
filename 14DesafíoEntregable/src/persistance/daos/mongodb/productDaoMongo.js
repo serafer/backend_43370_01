@@ -1,4 +1,5 @@
 import { ProductModel } from "./models/productModel.js";
+import { logger } from '../../../utils/logger.js';
 
 
 export const getProducts = async (page = 1, limit = 10, sort, filter, filterValue) => {
@@ -31,7 +32,7 @@ export const getProducts = async (page = 1, limit = 10, sort, filter, filterValu
 
         return response;
     } catch (error) {
-console.log(error);
+        logger.fatal ('Error DAO:' + error.message);
     }
 };
 
@@ -40,7 +41,7 @@ export const getProductById = async (id) => {
         const response = await ProductModel.findById(id)
         return response
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO:' + error.message);
     }
 }
 
@@ -49,7 +50,7 @@ export const addProduct = async (obj) => {
         const response = await ProductModel.create(obj)
         return response
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO:' + error.message);
     }
 }
 
@@ -58,7 +59,7 @@ export const updateProduct = async (id, obj) => {
         const response = await ProductModel.findByIdAndUpdate(id, obj, { new: true })
         return response
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO:' + error.message);
     }
 }
 
@@ -68,7 +69,7 @@ export const deleteProduct = async (id) => {
         return response
 
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO:' + error.message);
     }
 }
 
@@ -109,7 +110,7 @@ export const createProductsMock = async (cant = 100) => {
     return products;
 
   } catch (error) {
-    throw new Error(error.message);
+    logger.fatal ('Error DAO:' + error.message);
 }
 };
 
@@ -119,7 +120,7 @@ export const getProductsMocks = async () => {
   try {
     return await ProductModelMocks.find({});
   } catch (error) {
-    throw new Error(error.message);
+    logger.fatal ('Error DAO:' + error.message);
 }
 };
 

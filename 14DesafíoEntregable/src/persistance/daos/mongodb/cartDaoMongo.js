@@ -2,6 +2,7 @@ import { CartsModel } from "./models/cartModel.js";
 import { TicketModel } from "./models/ticketModel.js";
 import { ProductModel } from "./models/productModel.js";
 import { UserModel } from "./models/userModel.js";
+import { logger } from '../../../utils/logger.js';
 
 
 export const getCart = async () => {
@@ -11,7 +12,7 @@ export const getCart = async () => {
        return response
 
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO: ' + error.message);
     }
 
 }
@@ -23,7 +24,7 @@ export const getCartById = async (id) => {
         return response
 
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO: ' + error.message);
     }
 
 }
@@ -32,11 +33,11 @@ export const createCart = async () => {
 
     try {
         const newCart = await CartsModel.create({products: []})
-        console.log('Cart created successfully')
+        logger.debug('Cart created successfully')
         return newCart
 
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO: ' + error.message);
     }
 
 }
@@ -45,10 +46,10 @@ export const createCart = async () => {
 export const saveProductToCart = async (id, productId) => {
     try {
         const cart = await CartsModel.findOne({ _id: id });
-        //console.log("Carrito antes de la actualización:", cart);
+        //logger.debug("Carrito antes de la actualización:", cart);
 
         const prodIsInCart = cart.products.find((prod) => prod.ProductID.toString() === productId);
-        //console.log("Producto encontrado en el carrito:", prodIsInCart);
+        //logger.debug("Producto encontrado en el carrito:", prodIsInCart);
 
         if (prodIsInCart) {
             prodIsInCart.quantity++;
@@ -61,11 +62,11 @@ export const saveProductToCart = async (id, productId) => {
 
         cart.markModified("products"); // Marcar el array 'products' como modificado en ambos casos
         await cart.save();
-        //console.log('Carrito actualizado exitosamente');
-        //console.log("Carrito después de la actualización:", cart);
+        //logger.debug('Carrito actualizado exitosamente');
+        //logger.debug("Carrito después de la actualización:", cart);
         return cart;
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO: ' + error.message);
     }
 };
 
@@ -76,14 +77,14 @@ export const deleteProductInCart = async (id, productId) => {
     try {
 
         const cart = await CartsModel.findOne({ _id: id });
-        //console.log("Carrito seleccionado:", cart);
+        //logger.debug("Carrito seleccionado:", cart);
 
         const prodIsInCart = cart.products.find((prod) => prod.ProductID.toString() === productId);
-        //console.log("Producto encontrado en el carrito:", prodIsInCart);
+        //logger.debug("Producto encontrado en el carrito:", prodIsInCart);
 
         if (prodIsInCart) {
 
-            //console.log("Producto Eliminado", productId);
+            //logger.debug("Producto Eliminado", productId);
 
             cart.products = cart.products.filter((prod) => prod.ProductID.toString() !== productId);
 
@@ -91,18 +92,18 @@ export const deleteProductInCart = async (id, productId) => {
 
             //cart.markModified("products"); // Marcar el array 'products' como modificado en ambos casos
             await cart.save();
-            //console.log('Carrito actualizado exitosamente', cart );
-            //console.log("Carrito después de la actualización:", cart);
+            //logger.debug('Carrito actualizado exitosamente', cart );
+            //logger.debug("Carrito después de la actualización:", cart);
             return cart;
         } else {
-            //console.log('Error: El producto no se encontró en el carrito');
+            //logger.debug('Error: El producto no se encontró en el carrito');
             return cart; // Podrías lanzar una excepción o un mensaje de error más específico si lo deseas.
         }
 
 
 
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO: ' + error.message);
     }
 
 }
@@ -116,14 +117,14 @@ export const cleanCart = async (id) => {
             cart.products = []; // Eliminar todos los productos del carrito
 
             await cart.save();
-            console.log('Cart empty');
+            logger.debug('Cart empty');
             return cart;
         } else {
-            console.log('Error: cart not found');
+            logger.warning('Error: cart not found');
             return null;
         }
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO: ' + error.message);
     }
 };
 
@@ -131,10 +132,10 @@ export const cleanCart = async (id) => {
 export const updateQuantityInCart = async (id, productId, quantity) => {
     try {
         const cart = await CartsModel.findOne({ _id: id });
-        //console.log("Carrito antes de la actualización:", cart);
+        //logger.debug("Carrito antes de la actualización:", cart);
 
         const prodIsInCart = cart.products.find((prod) => prod.ProductID.toString() === productId);
-        //console.log("Producto encontrado en el carrito:", prodIsInCart);
+        //logger.debug("Producto encontrado en el carrito:", prodIsInCart);
 
         if (prodIsInCart) {
             const productIndex = cart.products.findIndex((prod) => prod.ProductID.toString() === productId.toString());
@@ -149,16 +150,16 @@ export const updateQuantityInCart = async (id, productId, quantity) => {
                 throw new Error('Invalid quantity value');
             }
         } else {
-            console.log("Product not founded. Impossible to update quantity");
+            logger.warning("Product not founded. Impossible to update quantity");
         }
 
         cart.markModified("products"); // Marcar el array 'products' como modificado en ambos casos
         await cart.save();
-        //console.log('Carrito actualizado exitosamente');
-        //console.log("Carrito después de la actualización:", cart);
+        //logger.debug('Carrito actualizado exitosamente');
+        //logger.debug("Carrito después de la actualización:", cart);
         return cart;
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO: ' + error.message);
     }
 }
 
@@ -182,11 +183,11 @@ export const updateCart = async (id, obj) => {
         // Guarda los cambios en la base de datos
         await cart.save();
 
-        //console.log('Carrito actualizado exitosamente');
-        //console.log("Carrito después de la actualización:", cart);
+        //logger.debug('Carrito actualizado exitosamente');
+        //logger.debug("Carrito después de la actualización:", cart);
         return cart;
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO: ' + error.message);
     }
 }
 
@@ -194,8 +195,8 @@ export const updateCart = async (id, obj) => {
 export const generateTicket = async (userID, cartID) => {
     try {
         
-        console.log('userID : ' + userID);
-        console.log('cartID : ' + cartID);
+        logger.debug('userID : ' + userID);
+        logger.debug('cartID : ' + cartID);
         
         // Obtén el carrito del usuario
         const userCart = await CartsModel.findById(cartID);
@@ -298,11 +299,11 @@ export const createCartTestMocks = async () => {
 
     try {
         const newCart = await CartsModel.create({})
-        console.log('Cart created successfully')
+        logger.debug('Cart created successfully')
         return newCart
 
     } catch (error) {
-        throw new Error(error.message);
+        logger.fatal ('Error DAO: ' + error.message);
     }
 
 }

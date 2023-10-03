@@ -1,5 +1,6 @@
 import { connect } from 'mongoose';
 import config from '../../../utils/config.js'
+import { logger } from '../../../utils/logger.js';
 
 
 //const connectionString = config.MONGO_LOCAL_URL;
@@ -10,9 +11,9 @@ export const conectionMongoose = async () => {
 
     try {
         await connect(connectionString)
-        console.log('Conectado a Mongoose connection')
+        logger.http('Conectado a Mongoose connection')
     } catch (error) {
-        console.log(error);
+        logger.fatal(error);
     }
     
 }

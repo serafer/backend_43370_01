@@ -1,7 +1,7 @@
 import { createHash, isValidPassword } from "../../../utils.js";
-import { createCart, createCartTestMocks } from "./cartDaoMongo.js";
+import { createCart } from "./cartDaoMongo.js";
 import { UserModel } from "./models/userModel.js";
-
+import { logger } from "../../../utils/logger.js";
 
 export const registerUser = async (user) => {
   try {
@@ -18,7 +18,7 @@ export const registerUser = async (user) => {
           role: "admin",
           cart: [{ CartID: newCart.id }],
         });
-        console.log(`User ${newUser.email} created`);
+        logger.debug(`User ${newUser.email} created`);
         return newUser;
       } else {
         const newCart = await createCart();
@@ -28,15 +28,15 @@ export const registerUser = async (user) => {
           password: createHash(password),
           cart: [{ CartID: newCart.id }],
         });
-        console.log(`User ${newUser.email} created`);
+        logger.debug(`User ${newUser.email} created`);
         return newUser;
       }
     } else {
-      console.log(`The user ${existUser.email} exists`);
+      logger.warning(`The user ${existUser.email} exists`);
       return false;
     }
   } catch (error) {
-    throw new Error(error.message);
+    logger.fatal('Error DAO: ' + error.message);
   }
 };
 
@@ -52,7 +52,7 @@ export const loginUser = async (user) => {
       return false;
     }
   } catch (error) {
-    throw new Error(error.message);
+    logger.fatal('Error DAO: ' + error.message);
   }
 };
 
@@ -62,7 +62,7 @@ export const getUserByID = async (id) => {
     if (userExist) return userExist;
     else return false;
   } catch (error) {
-    throw new Error(error.message);
+    logger.fatal('Error DAO: ' + error.message);
   }
 };
 
@@ -71,7 +71,7 @@ export const getAll = async () => {
     const response = await UserModel.find({});
     return response;
   } catch (error) {
-    throw new Error(error.message);
+    logger.fatal('Error DAO: ' + error.message);
   }
 };
 
@@ -81,7 +81,7 @@ export const getUserByEmail = async (email) => {
     if (userExist) return userExist;
     else return false;
   } catch (error) {
-    throw new Error(error.message);
+    logger.fatal('Error DAO: ' + error.message);
     throw new Error(error);
   }
 };
@@ -109,7 +109,7 @@ export const createUsersMock = async (cant = 50) => {
     }
     return users;
   } catch (error) {
-    throw new Error(error.message);
+    logger.fatal('Error DAO: ' + error.message);
   }
 };
 
@@ -119,6 +119,6 @@ export const getUsersMocks = async () => {
   try {
     return await UserModelMocks.find({});
   } catch (error) {
-    throw new Error(error.message);
+    logger.fatal('Error DAO: ' + error.message);
   }
 };

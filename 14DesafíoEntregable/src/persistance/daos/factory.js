@@ -37,7 +37,7 @@ switch (persistence) {
         prodDao = productDaoFS
         //chatDao = chatDaoFS
         cartDao = cartDaoFS
-        logger.info('Persistence:', persistence);
+        logger.info('Persistence: ' + persistence);
         break;
     case 'mongo':
         await conectionMongoose();
@@ -46,7 +46,7 @@ switch (persistence) {
         //chatDao = chatDaoMongo
         cartDao = cartDaoMongo
 
-        logger.info('Persistence:', persistence);
+        logger.info('Persistence: ' + persistence);
         break;
     default:  
         await conectionMongoose();
@@ -55,7 +55,7 @@ switch (persistence) {
         prodDao = productDaoMongo;
         //chatDao = chatDaoMongo
         cartDao = cartDaoMongo
-        logger.info('Persistence:', persistence);
+        logger.info('Persistence Default: ' + 'MongoDB');
         break; 
 };
 

@@ -1,7 +1,7 @@
-import { __dirname } from '../utils.js';
-import { createLogger, format, transports , addColors } from 'winston';
+import { createLogger, format, transports, addColors } from 'winston';
 import winston from 'winston';
 const { combine, printf, timestamp, colorize } = format;
+import { fileURLToPath } from "url";
 
 const customLogger = {
     levels: {
@@ -54,7 +54,7 @@ if (enviroment === "dev") {
             printf((info) => `${info.level} | ${info.timestamp} | ${info.message}`)
         ),
         transports: [new transports.File({
-            filename: `${__dirname}/../logs/errors.log`
+            filename: `${fileURLToPath(import.meta.url)}/../logs/errors.log`
         })],
 
 
@@ -62,5 +62,3 @@ if (enviroment === "dev") {
 }
 
 export const logger = createLogger(logConfig);
-
-

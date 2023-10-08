@@ -1,4 +1,6 @@
-[34minfo[39m | 10-07-2023 17:06:25 | Persistence: mongo
-[34minfo[39m | 10-07-2023 17:06:25 | Server listening on port 8080
-[34minfo[39m | 10-07-2023 17:08:30 | Persistence: mongo
-[34minfo[39m | 10-07-2023 17:08:30 | Server listening on port 8080
+info | 10-08-2023 02:40:43 | Persistence: mongo
+info | 10-08-2023 02:40:43 | Server listening on port 8080
+info | 10-08-2023 02:40:53 | imprimo info
+warning | 10-08-2023 02:40:53 | imprimo warning
+error | 10-08-2023 02:40:53 | imprimo error
+fatal | 10-08-2023 02:40:53 | imprimo fatal

@@ -50,7 +50,6 @@ if (enviroment === "dev") {
             timestamp({
                 format: 'MM-DD-YYYY HH:mm:ss',
             }),
-            colorize(addColors(customLogger.colors)),
             printf((info) => `${info.level} | ${info.timestamp} | ${info.message}`)
         ),
         transports: [new transports.File({

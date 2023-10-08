@@ -86,6 +86,51 @@ export const getUserByEmail = async (email) => {
   }
 };
 
+export const resetPass = async (user) => {
+  try {
+    const { email } = user;
+    const userExist = await getUserByEmail(email);
+    if (!userExist) return false;
+    return generateToken(userExist, "1h");
+  } catch (error) {
+    logger.fatal("Error DAO: " + error.message);
+  }
+};
+
+export const updatePass = async (user, password) => {
+  try {
+    const isEqual = isValidPassword(password, user);
+    if (isEqual) return 'isEqual';
+    const newPass = createHash(password);
+    return await UserModel.findByIdAndUpdate(user._id, { password: newPass });
+  } catch (error) {
+    logger.fatal("Error DAO: " + error.message);
+  }
+};
+
+export const updatePremiumRole = async (id) => {
+  try {
+    const user = await UserModel.findById(id);
+    if (!user) return "USER_NOT_FOUND";
+
+    if (user.role === "admin") return "ADMIN_USER";
+
+    if (user.role === "premium") {
+      const updateRole = await UserModel.findByIdAndUpdate(user._id, { role: "user", }, { new: true, });
+
+      return { msg: "The role was update to user: ", updateRole };
+    }
+
+    if (user.role === "user") {
+      const updateRole = await UserModel.findByIdAndUpdate(user._id, { role: "premium", }, { new: true, });
+
+      return { msg: "The role was update to premium: ", updateRole };
+    }
+  } catch (error) {
+    logger.fatal("Error DAO: " + error.message);
+  }
+};
+
 // FackerJS - Mocks //
 
 import { fakerES_MX as faker } from "@faker-js/faker";
@@ -115,29 +160,6 @@ export const createUsersMock = async (cant = 50) => {
 export const getUsersMocks = async () => {
   try {
     return await UserModelMocks.find({});
-  } catch (error) {
-    logger.fatal("Error DAO: " + error.message);
-  }
-};
-
-export const resetPass = async (user) => {
-  try {
-    const { email } = user;
-    const userExist = await getUserByEmail(email);
-    if (!userExist) return false;
-    return generateToken(userExist, "1h");
-  } catch (error) {
-    logger.fatal("Error DAO: " + error.message);
-  }
-};
-
-
-export const updatePass = async (user, password) => {
-  try {
-    const isEqual = isValidPassword(password, user );
-    if (isEqual) return false;
-    const newPass = createHash(password);
-    return await UserModel.findByIdAndUpdate(user._id, { password: newPass });
   } catch (error) {
     logger.fatal("Error DAO: " + error.message);
   }

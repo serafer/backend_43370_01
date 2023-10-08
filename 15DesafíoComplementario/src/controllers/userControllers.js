@@ -10,6 +10,7 @@ import {
   loginUserServices,
   resetPassService,
   updatePassService,
+  updatePremiumRoleService,
 } from "../services/userServices.js";
 import { HttpResponse } from "../utils/http.response.js";
 const httpResponse = new HttpResponse();
@@ -121,6 +122,8 @@ export const updatePass = async (req, res, next) => {
       return httpResponse.Forbidden(res, error.TOKEN_INVALID);
     }
     const updPass = await updatePassService (user, password);
+
+    if (updPass === 'isEqual') return httpResponse.Forbidden(res, "New password must be different from current password")
     
 
     if (!updPass) return httpResponse.NotFound(res, error.PASSWORD_INVALID_POLICY);
@@ -131,6 +134,24 @@ export const updatePass = async (req, res, next) => {
     next(error.message);
 
   }
+}
+
+export const updatePremiumRole = async (req, res, next) => {
+try {
+  
+  const { uid } = req.params
+
+  const response = await updatePremiumRoleService (uid)
+
+  if (response === "USER_NOT_FOUND") return httpResponse.NotFound (res, error.USER_NOT_FOUND)
+  if (response === "ADMIN_USER") return httpResponse.Forbidden (res, "Admin users cannot be updated")
+
+return httpResponse.Ok(res, response)
+
+} catch (error) {
+  next(error.message);
+}
+
 }
 
 

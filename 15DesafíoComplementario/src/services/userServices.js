@@ -7,6 +7,7 @@ import {
   getUsersMocks,
   resetPass,
   updatePass,
+  updatePremiumRole,
 } from "../persistance/daos/mongodb/userDaoMongo.js";
 import { getByIdDTO } from "../persistance/repository/user.repositpry.js";
 import { logger } from "../utils/logger.js";
@@ -73,6 +74,18 @@ export const updatePassService = async (user, password) => {
     logger.error("Error Service:", error.message);
   }
 };
+
+
+export const updatePremiumRoleService = async (id) => {
+
+    try {
+        return await updatePremiumRole (id)
+    } catch (error) {
+        logger.error("Error Service:", error.message);
+
+    }
+}
+
 
 //  MOCKS  //
 

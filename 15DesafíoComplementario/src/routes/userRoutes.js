@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, logoutUserC, current, getAll, createUserMocks, getUsersMocks, loginApi, resetPass, updatePass } from "../controllers/userControllers.js";
+import { login, logoutUserC, current, getAll, createUserMocks, getUsersMocks, loginApi, resetPass, updatePass, updatePremiumRole } from "../controllers/userControllers.js";
 import passport from "passport";
 import { ckeckAdminRole } from "../middlewares/checkRole.js";
 const router = Router();
@@ -38,7 +38,7 @@ router.post ("/reset-pass", passport.authenticate("jwt"), resetPass)
 
 router.put ("/new-pass", passport.authenticate("jwt"), updatePass)
 
-
+router.put ("/premium/:uid", passport.authenticate('jwt'), ckeckAdminRole, updatePremiumRole)
 
 router.post("/mockingusers", createUserMocks);
 router.get("/get-mockingusers", getUsersMocks);

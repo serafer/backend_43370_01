@@ -42,8 +42,10 @@ export const saveProductToCart = async (req, res, next) => {
 
     try {
         const { id, productId } = req.params
-        const cart = await service.saveProductToCartService(id, productId)
+        const user = req.user
+        const cart = await service.saveProductToCartService(id, productId, user)
         if (!cart) return httpResponse.NotFound(res, error.CART_NOT_UPDATED)
+        if (cart === "owner") return httpResponse.Unauthorized(res, "Role Premium: cannot add your own product")
         else return httpResponse.Ok(res, { cart })
     } catch (error) {
         next(error.message)

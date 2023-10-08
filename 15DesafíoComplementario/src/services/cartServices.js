@@ -7,7 +7,7 @@ export const getCartService = async () => {
         const cart = await getCart()
         return cart
     } catch (error) {
-        logger.error ('Error Service:', error.message);
+        logger.error('Error Service:', error.message);
     }
 
 }
@@ -19,7 +19,7 @@ export const getCartByIdService = async (id) => {
         if (!cart) { return false; }
         else { return cart; }
     } catch (error) {
-        logger.error ('Error Service:', error.message);
+        logger.error('Error Service:', error.message);
     }
 }
 
@@ -34,19 +34,19 @@ export const createCartService = async () => {
 
     } catch (error) {
 
-        logger.error ('Error Service:', error.message);
+        logger.error('Error Service:', error.message);
     }
 }
 
-export const saveProductToCartService = async (id, productId) => {
+export const saveProductToCartService = async (id, productId, user) => {
 
     try {
-        const cart = await saveProductToCart(id, productId)
+        const cart = await saveProductToCart(id, productId, user)
 
         return cart
 
     } catch (error) {
-        logger.error ('Error Service:', error.message);
+        logger.error('Error Service:', error.message);
     }
 
 }
@@ -60,7 +60,7 @@ export const deleteProductInCartService = async (id, productId) => {
         return cart
 
     } catch (error) {
-        logger.error ('Error Service:', error.message);
+        logger.error('Error Service:', error.message);
     }
 
 }
@@ -75,7 +75,7 @@ export const cleanCartService = async (id) => {
         return cart
 
     } catch (error) {
-        logger.error ('Error Service:', error.message);
+        logger.error('Error Service:', error.message);
     }
 }
 
@@ -88,7 +88,7 @@ export const updateQuantityInCartService = async (id, productId, quantity) => {
         return cart
 
     } catch (error) {
-        logger.error ('Error Service:', error.message);
+        logger.error('Error Service:', error.message);
     }
 
 }
@@ -103,7 +103,7 @@ export const updateCartService = async (id, obj) => {
         return cart
 
     } catch (error) {
-        logger.error ('Error Service:', error.message);
+        logger.error('Error Service:', error.message);
     }
 
 }
@@ -116,6 +116,6 @@ export const generateTicketService = async (userID, cartID) => {
         else { return ticket }
 
     } catch (error) {
-        logger.error ('Error Service:', error.message);
+        logger.error('Error Service:', error.message);
     }
 }

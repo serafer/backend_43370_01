@@ -9,10 +9,10 @@ export const getCart = async () => {
 
     try {
         const response = await CartsModel.find({}).populate('products.ProductID')
-       return response
+        return response
 
     } catch (error) {
-        logger.fatal ('Error DAO: ' + error.message);
+        logger.fatal('Error DAO: ' + error.message);
     }
 
 }
@@ -24,7 +24,7 @@ export const getCartById = async (id) => {
         return response
 
     } catch (error) {
-        logger.fatal ('Error DAO: ' + error.message);
+        logger.fatal('Error DAO: ' + error.message);
     }
 
 }
@@ -32,24 +32,30 @@ export const getCartById = async (id) => {
 export const createCart = async () => {
 
     try {
-        const newCart = await CartsModel.create({products: []})
+        const newCart = await CartsModel.create({ products: [] })
         logger.debug('Cart created successfully')
         return newCart
 
     } catch (error) {
-        logger.fatal ('Error DAO: ' + error.message);
+        logger.fatal('Error DAO: ' + error.message);
     }
 
 }
 
 
-export const saveProductToCart = async (id, productId) => {
+export const saveProductToCart = async (id, productId, user) => {
     try {
         const cart = await CartsModel.findOne({ _id: id });
         //logger.debug("Carrito antes de la actualización:", cart);
 
         const prodIsInCart = cart.products.find((prod) => prod.ProductID.toString() === productId);
         //logger.debug("Producto encontrado en el carrito:", prodIsInCart);
+
+
+        const userID = user.id;
+        const prod = await ProductModel.findOne({ _id: productId })
+
+        if (user.id === prod.owner && user.role === "premium") return "owner"
 
         if (prodIsInCart) {
             prodIsInCart.quantity++;
@@ -66,7 +72,7 @@ export const saveProductToCart = async (id, productId) => {
         //logger.debug("Carrito después de la actualización:", cart);
         return cart;
     } catch (error) {
-        logger.fatal ('Error DAO: ' + error.message);
+        logger.fatal('Error DAO: ' + error.message);
     }
 };
 
@@ -88,7 +94,7 @@ export const deleteProductInCart = async (id, productId) => {
 
             cart.products = cart.products.filter((prod) => prod.ProductID.toString() !== productId);
 
-            
+
 
             //cart.markModified("products"); // Marcar el array 'products' como modificado en ambos casos
             await cart.save();
@@ -103,7 +109,7 @@ export const deleteProductInCart = async (id, productId) => {
 
 
     } catch (error) {
-        logger.fatal ('Error DAO: ' + error.message);
+        logger.fatal('Error DAO: ' + error.message);
     }
 
 }
@@ -124,7 +130,7 @@ export const cleanCart = async (id) => {
             return null;
         }
     } catch (error) {
-        logger.fatal ('Error DAO: ' + error.message);
+        logger.fatal('Error DAO: ' + error.message);
     }
 };
 
@@ -159,7 +165,7 @@ export const updateQuantityInCart = async (id, productId, quantity) => {
         //logger.debug("Carrito después de la actualización:", cart);
         return cart;
     } catch (error) {
-        logger.fatal ('Error DAO: ' + error.message);
+        logger.fatal('Error DAO: ' + error.message);
     }
 }
 
@@ -187,17 +193,17 @@ export const updateCart = async (id, obj) => {
         //logger.debug("Carrito después de la actualización:", cart);
         return cart;
     } catch (error) {
-        logger.fatal ('Error DAO: ' + error.message);
+        logger.fatal('Error DAO: ' + error.message);
     }
 }
 
 
 export const generateTicket = async (userID, cartID) => {
     try {
-        
+
         logger.debug('userID : ' + userID);
         logger.debug('cartID : ' + cartID);
-        
+
         // Obtén el carrito del usuario
         const userCart = await CartsModel.findById(cartID);
         if (!userCart) {
@@ -303,7 +309,7 @@ export const createCartTestMocks = async () => {
         return newCart
 
     } catch (error) {
-        logger.fatal ('Error DAO: ' + error.message);
+        logger.fatal('Error DAO: ' + error.message);
     }
 
 }

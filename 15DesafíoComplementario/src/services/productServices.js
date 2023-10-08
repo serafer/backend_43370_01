@@ -22,9 +22,9 @@ export const getProductByIdService = async (id) => {
     }
 }
 
-export const addProductService = async (obj) => {
+export const addProductService = async (product, user) => {
     try {
-        const newProduct = await addProduct (obj)
+        const newProduct = await addProduct (product, user)
 
         if (!newProduct) {return false;}
         else {return newProduct}
@@ -34,10 +34,11 @@ export const addProductService = async (obj) => {
     }
 }
 
-export const updateProductService = async (id, obj) => {
+export const updateProductService = async (id, product, user) => {
     try {
-        const updateProd = await updateProduct (id, obj)
+        const updateProd = await updateProduct (id, product, user)
 
+        if (!updateProd) {return false;}
         return updateProd
 
     } catch (error) {
@@ -45,9 +46,11 @@ export const updateProductService = async (id, obj) => {
     }
 }
 
-export const deleteProductService = async (id) => {
+export const deleteProductService = async (id, user) => {
     try {
-        const deleteProd = await deleteProduct (id)
+        const deleteProd = await deleteProduct (id, user)
+        
+        if (!deleteProd) {return false;}
         return deleteProd
 
     } catch (error) {

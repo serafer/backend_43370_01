@@ -16,7 +16,7 @@ export const getproduct = async (req, res, next) => {
     );
 
     if (!response) {
-      return httpResponse.NotFoud(res, error.PRODUCT_NOT_CREATED)
+      return httpResponse.NotFound(res, error.PRODUCT_NOT_CREATED)
     } else {
 
 
@@ -100,7 +100,7 @@ export const getProductById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await service.getProductByIdService(id);
-    if (!product) return httpResponse.NotFoud(res, error.PRODUCT_NOT_FOUND)
+    if (!product) return httpResponse.NotFound(res, error.PRODUCT_NOT_FOUND)
     else return httpResponse.Ok(res, { product })
   } catch (error) {
     next(error.message);
@@ -109,10 +109,13 @@ export const getProductById = async (req, res, next) => {
 
 export const addProduct = async (req, res, next) => {
   try {
-    const product = await service.addProductService(req.body);
+    const product = req.body;
+    const user = req.user
 
-    if (!product) return httpResponse.NotFoud(res, error.PRODUCT_INVALID)
-    else return httpResponse.Ok(res, { 'Created product': product })
+    const response = await service.addProductService(product, user)
+
+    if (!product) return httpResponse.NotFound(res, error.PRODUCT_INVALID)
+    else return httpResponse.Ok(res, { 'Created product': response })
   } catch (error) {
     next(error.message);
   }
@@ -121,10 +124,12 @@ export const addProduct = async (req, res, next) => {
 export const updateProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const product = req.body;
+    const user = req.user
 
-    const productUpdated = await service.updateProductService(id, req.body);
+    const productUpdated = await service.updateProductService(id, product, user);
 
-    if (!productUpdated) return httpResponse.NotFoud(res, error.PRODUCT_NOT_UPDATED)
+    if (!productUpdated) return httpResponse.NotFound(res, error.PRODUCT_NOT_UPDATED)
 
     else return httpResponse.Ok(res, { 'Updated product': productUpdated })
 
@@ -136,11 +141,14 @@ export const updateProduct = async (req, res, next) => {
 export const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const deletedProd = await service.deleteProductService(id);
+    const user = req.user
 
-    if (!deletedProd) return httpResponse.NotFoud(res, error.PRODUCT_NOT_DELETED)
+    const deletedProd = await service.deleteProductService(id, user);
 
-    else return httpResponse.Ok(res, { deleteProduct })
+
+    if (!deletedProd) return httpResponse.NotFound(res, error.PRODUCT_NOT_DELETED)
+
+    else return httpResponse.Ok(res, { deletedProd })
 
   } catch (error) {
     next(error.message);
@@ -157,7 +165,7 @@ export const getByIdDTO = async (req, res, next) => {
     const { id } = req.params;
     const product = await service.getByIdDTOService(id);
 
-    if (!product) return httpResponse.NotFoud(res, error.PRODUCT_NOT_FOUND)
+    if (!product) return httpResponse.NotFound(res, error.PRODUCT_NOT_FOUND)
 
     else return httpResponse.Ok(res, { product })
   } catch (error) {
@@ -169,7 +177,7 @@ export const getByIdDTO = async (req, res, next) => {
 export const createProdDTO = async (req, res, next) => {
   try {
     const product = await service.createProdDTOService(req.body);
-    if (!product) return httpResponse.NotFoud(res, error.PRODUCT_NOT_CREATED);
+    if (!product) return httpResponse.NotFound(res, error.PRODUCT_NOT_CREATED);
     else return httpResponse.Ok(res, { product })
   } catch (error) {
     next(error.message);
@@ -184,7 +192,7 @@ export const createProductsMocks = async (req, res, next) => {
   try {
     const { cant } = req.query;
     const response = await service.createProductsMockService(cant)
-    if (!response) return httpResponse.NotFoud(res, error.PRODUCT_NOT_FOUND)
+    if (!response) return httpResponse.NotFound(res, error.PRODUCT_NOT_FOUND)
     else return httpResponse.Ok(res, { 'Mock Products': response })
   } catch (error) {
     next(error.message);

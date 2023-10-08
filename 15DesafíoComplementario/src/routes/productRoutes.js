@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as controller from "../controllers/productControllers.js"
-import { ckeckAdminRole } from "../middlewares/checkRole.js";
+import { ckeckAdminPremiumRole, ckeckAdminRole } from "../middlewares/checkRole.js";
 import passport from "passport";
 
 
@@ -24,11 +24,11 @@ router.get('/',passport.authenticate('jwt') , controller.getproduct)
 
 router.get('/:id', passport.authenticate('jwt') , controller.getProductById)
 
-router.post('/', passport.authenticate('jwt') , ckeckAdminRole, controller.addProduct)
+router.post('/', passport.authenticate('jwt') , ckeckAdminPremiumRole, controller.addProduct)
 
-router.put('/:id', passport.authenticate('jwt') , ckeckAdminRole, controller.updateProduct)
+router.put('/:id', passport.authenticate('jwt') , ckeckAdminPremiumRole, controller.updateProduct)
 
-router.delete('/:id', passport.authenticate('jwt') , ckeckAdminRole ,controller.deleteProduct)
+router.delete('/:id', passport.authenticate('jwt') , ckeckAdminPremiumRole ,controller.deleteProduct)
 
 
 

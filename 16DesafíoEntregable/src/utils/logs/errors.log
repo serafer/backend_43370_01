@@ -1,0 +1,12 @@
+info | 10-08-2023 02:40:43 | Persistence: mongo
+info | 10-08-2023 02:40:43 | Server listening on port 8080
+info | 10-08-2023 02:40:53 | imprimo info
+warning | 10-08-2023 02:40:53 | imprimo warning
+error | 10-08-2023 02:40:53 | imprimo error
+fatal | 10-08-2023 02:40:53 | imprimo fatal
+info | 10-16-2023 16:40:43 | Persistence: mongo
+info | 10-16-2023 16:40:43 | Server listening on port 8080
+info | 10-16-2023 16:45:50 | Persistence: mongo
+info | 10-16-2023 16:45:50 | Server listening on port 8080
+info | 10-16-2023 18:08:37 | Persistence: mongo
+info | 10-16-2023 18:08:38 | Server listening on port 8080

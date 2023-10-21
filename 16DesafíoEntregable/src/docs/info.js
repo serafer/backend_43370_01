@@ -2,9 +2,9 @@ export const info = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'API Ecommerce',
+            title: 'Ecommerce API',
             version: '1.0.0',
-            description: 'API para ecommerce'
+            description: 'Before starting endpoint executions, run /api/users/loginApi POST on the USER tag to avoid the authorization middleware.'
         },
         servers: [
             {

@@ -76,3 +76,21 @@ components:
         example:
           id_: 650a770add40087430f909a8
           products: []
+
+      Users:
+        type: object
+        description: Users
+        required:
+          -email
+          -password
+        properties:
+          email:
+            type: string
+            description: Email address
+          password:
+            type: string
+            description: Password
+        example:
+          email: serafer3+admin@gmail.com
+          password: "123"
+         

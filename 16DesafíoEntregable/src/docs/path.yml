@@ -1,4 +1,37 @@
 paths:
+
+  /api/users/loginApi:
+    post:
+      tags:
+        - Users
+      summary: Login api endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/parameters/schemas/Users"
+      responses:
+        200:
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Users/login"
+
+        404:
+          description: Not found message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Error/notFound"
+
+        500:
+          description: Server error message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Error/internalServerError"
+
   /api/products:
     post:
       tags:
@@ -317,6 +350,13 @@ paths:
       tags:
         - Cart
       summary: Get a cart by id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Cart id
+          schema:
+            type: string
       responses:
         200:
           description: Cart found successfully
@@ -357,6 +397,13 @@ paths:
       tags:
         - Cart
       summary: Clean a Cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Cart id
+          schema:
+            type: string
       responses:
         200:
           description: Cart cleaned successfully
@@ -397,6 +444,13 @@ paths:
       tags:
         - Cart
       summary: Update a Cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Cart id
+          schema:
+            type: string
       responses:
         200:
           description: Cart updated successfully
@@ -438,6 +492,19 @@ paths:
       tags:
         - Cart
       summary: Add a product to the cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Cart id
+          schema:
+            type: string
+        - in: path
+          name: productId
+          required: true
+          description: Product id
+          schema:
+            type: string
       responses:
         200:
           description: Product added successfully
@@ -478,6 +545,19 @@ paths:
       tags:
         - Cart
       summary: Delete product from Cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Cart id
+          schema:
+            type: string
+        - in: path
+          name: productId
+          required: true
+          description: Product id
+          schema:
+            type: string
       responses:
         200:
           description: Product was successfully deleted
@@ -518,6 +598,19 @@ paths:
       tags:
         - Cart
       summary: Update quantity of a product in the cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Cart id
+          schema:
+            type: string
+        - in: path
+          name: productId
+          required: true
+          description: Product id
+          schema:
+            type: string
       responses:
         200:
           description: Quantity updated successfully
@@ -560,13 +653,20 @@ paths:
       tags:
         - Cart
       summary: Generates purchase instrcting ID of cart
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Cart id
+          schema:
+            type: string
       responses:
         200:
           description: Purchase generated successfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schema/Cart/generateTicket"
+                $ref: "#/components/schema/Cart/ok_generateTicket"
 
         404:
           description: Not found message

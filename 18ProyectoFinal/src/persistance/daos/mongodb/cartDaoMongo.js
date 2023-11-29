@@ -327,3 +327,13 @@ export const createCartTestMocks = async () => {
     }
 
 }
+
+export const getAllTickets = async (purchaser) => {
+
+    try {
+        const tickets = await TicketModel.find(purchaser)
+        return tickets
+    } catch (error) {
+        logger.fatal('Error DAO: ' + error.message);
+    }
+}

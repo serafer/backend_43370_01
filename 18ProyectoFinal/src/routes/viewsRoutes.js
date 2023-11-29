@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register, errorLogin, errorRegister, errorAlert, cartView, getAllUsersViews } from "../controllers/viewsControllers.js";
+import { login, register, errorLogin, errorRegister, errorAlert, cartView, getAllUsersViews, getAllTicketsViews } from "../controllers/viewsControllers.js";
 import { logoutUserC } from "../controllers/userControllers.js";
 import { getproductPaginate } from "../controllers/productControllers.js";
 import passport from "passport";
@@ -21,5 +21,7 @@ router.get('/products',  passport.authenticate("jwt") , getproductPaginate);
 router.get('/cart/:id', passport.authenticate("jwt") , cartView);
 
 router.get('/userAdminMenu', passport.authenticate("jwt") , ckeckAdminRole ,  getAllUsersViews);
+
+router.get('/tickets', passport.authenticate("jwt") ,  getAllTicketsViews);
 
 export default router;

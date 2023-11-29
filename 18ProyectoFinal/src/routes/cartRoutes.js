@@ -9,6 +9,8 @@ router.get('/', passport.authenticate("jwt") , controller.getCart)
 
 router.post('/', passport.authenticate("jwt") , controller.createCart)
 
+router.get('/tickets', passport.authenticate("jwt") ,controller.getAllTickets)
+
 router.get('/:id', passport.authenticate("jwt") , controller.getCartById)
 
 router.delete('/:id', passport.authenticate("jwt") , controller.cleanCart)
@@ -24,7 +26,9 @@ router.post('/:id/prod3/:productId', passport.authenticate("jwt") , deleteProduc
 router.put ('/:id/prod/:productId', passport.authenticate("jwt") , controller.updateQuantityInCart)
 
 router.post ('/:id/purchase', passport.authenticate('jwt') , controller.generateTicket)
+router.post ('/:id/purchase2', passport.authenticate('jwt') , controller.generateTicketViews)
 
 router.post('/purchase', passport.authenticate("jwt") ,controller.generateTicket)
+
 
 export default router

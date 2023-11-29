@@ -3,6 +3,8 @@ import { HttpResponse } from "../utils/http.response.js";
 import error from "../utils/errors.dictionary.js";
 import {
   deleteProductInCartService,
+  generateTicketService,
+  getAllTicketsServices,
   getCartByIdService,
   saveProductToCartService,
 } from "../services/cartServices.js";
@@ -113,13 +115,12 @@ export const deleteProductInCartViews = async (req, res, next) => {
   }
 };
 
-
 export const getAllUsersViews = async (req, res, next) => {
   try {
     const data = await getAllService();
 
     //console.log(data);
-    
+
     const userPrev = req.user;
 
     const user = userPrev.toObject();
@@ -131,6 +132,29 @@ export const getAllUsersViews = async (req, res, next) => {
       const userMap = data.map((data) => data.toObject());
 
       res.status(200).render("userAdminMenu", { userMap, user, cartID });
+    }
+  } catch (error) {
+    next(error.message);
+  }
+};
+
+export const getAllTicketsViews = async (req, res, next) => {
+  try {
+    const user1 = await getUserByID(req.session.passport.user);
+    const userID = user1.id;
+    const purchaser = { purchaser: userID };
+
+    const user = user1.toObject();
+
+    const tickets = await getAllTicketsServices(purchaser);
+
+    if (!tickets) return res.redirect("/error-alert");
+    else {
+      const ticketsMap = tickets.map((tickets) => tickets.toObject());
+
+      console.log(ticketsMap);
+
+      res.status(200).render("tickets", { ticketsMap, user });
     }
   } catch (error) {
     next(error.message);

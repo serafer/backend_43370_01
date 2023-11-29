@@ -1,7 +1,10 @@
 import { createLogger, format, transports, addColors } from 'winston';
 import winston from 'winston';
 const { combine, printf, timestamp, colorize } = format;
+import { dirname } from 'path';
 import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const customLogger = {
     levels: {
@@ -53,7 +56,7 @@ if (enviroment === "dev") {
             printf((info) => `${info.level} | ${info.timestamp} | ${info.message}`)
         ),
         transports: [new transports.File({
-            filename: `${fileURLToPath(import.meta.url)}/../logs/errors.log`
+            filename: `${__dirname}/../logs/errors-${new Date().getTime()}.log`
         })],
 
 

@@ -6,6 +6,7 @@ import {
   getCartByIdService,
   saveProductToCartService,
 } from "../services/cartServices.js";
+import { getAllService } from "../services/userServices.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -81,12 +82,11 @@ export const cartView = async (req, res, next) => {
     const { id } = req.params;
     const cart = await getCartByIdService(id);
 
-    const userPrev = req.user
+    const userPrev = req.user;
 
     const user = userPrev.toObject();
 
     const cartID = user.cart[0].CartID;
-
 
     if (!cart) return res.redirect("/error-alert");
     else {
@@ -95,7 +95,6 @@ export const cartView = async (req, res, next) => {
         cartID: id,
       }));
 
-
       res.status(200).render("cart", { cartItems: cartMap, user, cartID });
     }
   } catch (error) {
@@ -103,15 +102,37 @@ export const cartView = async (req, res, next) => {
   }
 };
 
-
 export const deleteProductInCartViews = async (req, res, next) => {
-
   try {
-      const { id, productId } = req.params
-      const cart = await deleteProductInCartService(id, productId)
-      if (!cart) return res.redirect("/error-alert")
-      else return res.redirect(`/cart/${id}`)
+    const { id, productId } = req.params;
+    const cart = await deleteProductInCartService(id, productId);
+    if (!cart) return res.redirect("/error-alert");
+    else return res.redirect(`/cart/${id}`);
   } catch (error) {
-      next(error.message)
+    next(error.message);
   }
-}
+};
+
+
+export const getAllUsersViews = async (req, res, next) => {
+  try {
+    const data = await getAllService();
+
+    //console.log(data);
+    
+    const userPrev = req.user;
+
+    const user = userPrev.toObject();
+
+    const cartID = user.cart[0].CartID;
+
+    if (!data) return res.redirect("/error-alert");
+    else {
+      const userMap = data.map((data) => data.toObject());
+
+      res.status(200).render("userAdminMenu", { userMap, user, cartID });
+    }
+  } catch (error) {
+    next(error.message);
+  }
+};

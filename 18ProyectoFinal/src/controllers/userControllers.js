@@ -176,6 +176,24 @@ export const updatePremiumRole = async (req, res, next) => {
 
 }
 
+export const updatePremiumRoleViews = async (req, res, next) => {
+  try {
+
+    const { uid } = req.params
+
+    const response = await updatePremiumRoleService(uid)
+
+    if (response === "USER_NOT_FOUND") return res.redirect("/error-alert")
+    if (response === "ADMIN_USER") res.redirect("/error-alert")
+
+    return res.redirect(`/userAdminMenu`)
+
+  } catch (error) {
+    next(error.message);
+  }
+
+}
+
 
 
 
@@ -201,6 +219,17 @@ export const removeById = async (req, res, next) => {
       const response = await removeUserByIDService(req.params.uid);
       if (!response) return httpResponse.Forbidden(res, "Unautorized");
       else return httpResponse.Ok(res, response)
+  } catch (error) {
+    next(error.message);;
+  }
+};
+
+export const removeByIdViews = async (req, res, next) => {
+  try {
+      const response = await removeUserByIDService(req.params.uid);
+      if (!response) return res.redirect("/error-alert")
+
+      return res.redirect(`/userAdminMenu`)
   } catch (error) {
     next(error.message);;
   }

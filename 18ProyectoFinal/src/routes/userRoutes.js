@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, logoutUserC, current, getAll, createUserMocks, getUsersMocks, loginApi, resetPass, updatePass, updatePremiumRole, getAllDTO, removeOldUser, removeById } from "../controllers/userControllers.js";
+import { login, logoutUserC, current, getAll, createUserMocks, getUsersMocks, loginApi, resetPass, updatePass, updatePremiumRole, getAllDTO, removeOldUser, removeById, updatePremiumRoleViews, removeByIdViews } from "../controllers/userControllers.js";
 import passport from "passport";
 import { ckeckAdminRole } from "../middlewares/checkRole.js";
 const router = Router();
@@ -41,6 +41,7 @@ router.post ("/reset-pass", passport.authenticate("jwt"), resetPass)
 router.put ("/new-pass", passport.authenticate("jwt"), updatePass)
 
 router.put ("/premium/:uid", passport.authenticate('jwt'), ckeckAdminRole, updatePremiumRole)
+router.post ("/premium2/:uid", passport.authenticate('jwt'), ckeckAdminRole, updatePremiumRoleViews)
 
 router.post("/mockingusers", createUserMocks);
 router.get("/get-mockingusers", getUsersMocks);
@@ -50,5 +51,6 @@ router.get("/current", passport.authenticate('jwt') , current )
 router.delete("/delete", passport.authenticate('jwt') , ckeckAdminRole , removeOldUser)
 
 router.delete("/delete/:uid", passport.authenticate('jwt') , ckeckAdminRole , removeById)
+router.post("/delete2/:uid", passport.authenticate('jwt') , ckeckAdminRole , removeByIdViews)
 
 export default router;
